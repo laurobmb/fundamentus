@@ -19,7 +19,7 @@ lista = {outer_k: {inner_k: float(inner_v) for inner_k, inner_v in outer_v.items
 
 @app.route("/",methods=['GET'])
 def fundamentus():
-    check_file_acoes()
+    check_file_acoes(0)
     check_file_fii()
     acoes = analise_acoes(5)
     fii = analise_fii(5)
