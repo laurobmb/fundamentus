@@ -21,8 +21,8 @@ lista = {outer_k: {inner_k: float(inner_v) for inner_k, inner_v in outer_v.items
 def fundamentus():
     check_file_acoes(0)
     check_file_fii()
-    acoes = analise_acoes(5)
-    fii = analise_fii(5)
+    acoes = analise_acoes(10)
+    fii = analise_fii(10)
     return  render_template('index.html',tables=[acoes.to_html(),fii.to_html()],titles = ['na'])
 
 
