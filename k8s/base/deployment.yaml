@@ -1,0 +1,39 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fundamentus-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fundamentus
+  template:
+    metadata:
+      labels:
+        app: fundamentus
+      namespace: fundamentus
+    spec:
+      serviceAccount: fundamentus-sa
+      containers:
+      - name: fundamentus
+        image: quay.io/lagomes/fundamentus:selecao_de_segmento
+        #image: quay.io/lagomes/fundamentus:master
+        imagePullPolicy: Always
+        env:
+        - name: ENVIROMENT_INFO
+          value: "beta"
+        ports:
+        - name: http-port
+          containerPort: 8080
+        resources:
+          requests:
+            cpu: 200m
+            memory: 64Mi
+          limits:
+            cpu: 500m
+            memory: 128Mi
+        securityContext:
+          privileged: true
+
+ 
