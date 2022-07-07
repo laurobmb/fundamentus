@@ -14,6 +14,7 @@ Esta é uma pequena API feita em python3 para análise de ações da BOVESPA uti
 8. [X] Evita PL negativo e maior que 4
 9. [X] Evita ROE negativo e maior que 80%
 10. [X] excluindo fundos com liquidez baixa
+11. [x] selecao de segmento
 
 ## instalação:
 * pip3 install -r app/requirements.txt
