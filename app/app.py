@@ -14,13 +14,13 @@ app = Flask(__name__)
 CORS(app)
 
 # First update
-lista, dia = dict(get_data(1)), datetime.strftime(datetime.today(), '%d')
+lista, dia = dict(get_data(1,setor=0)), datetime.strftime(datetime.today(), '%d')
 lista = {outer_k: {inner_k: float(inner_v) for inner_k, inner_v in outer_v.items()} for outer_k, outer_v in lista.items()}
 
 @app.route("/",methods=['GET'])
 def fundamentus():
     check_file_acoes(0)
-    check_file_fii()
+    check_file_fii(0)
     acoes = analise_acoes(10)
     fii = analise_fii(10)
     return  render_template('index.html',tables=[acoes.to_html(),fii.to_html()],titles = ['na'])
@@ -52,13 +52,18 @@ def melhoresacoes(page_id):
     if page_id <= 100:
         check_file_acoes(value)
         anlise = analise_acoes(page_id)
-        return render_template('view_acoes.html',tables=[anlise.to_html()],titles = ['na'])
+        return render_template('acoes.html',tables=[anlise.to_html()],titles = ['na'])
     else:
         return render_template('error.html')
 
 
-@app.route("/fii/<page_id>",methods=['GET'])
+@app.route("/fii/<page_id>",methods=['POST', 'GET'])
 def melhoresfii(page_id):
+    value = request.form.get('setor')
+    if value is None:
+        value = ''
+    print('melhoresfiis',value)
+
     try:
         page_id = int(page_id)
     except ValueError as e:
@@ -66,9 +71,9 @@ def melhoresfii(page_id):
         return render_template('error.html')
 
     if page_id <= 100:
-        check_file_fii()
+        check_file_fii(value)
         anlise = analise_fii(page_id)
-        return render_template('table_fii.html',tables=[anlise.to_html()],titles = ['na'])
+        return render_template('fii.html',tables=[anlise.to_html()],titles = ['na'])
     else:
         return render_template('error.html')
 
@@ -79,19 +84,19 @@ def json_api():
     if dia == datetime.strftime(datetime.today(), '%d'):
         return jsonify(lista)
     else:
-        lista, dia = dict(get_data()), datetime.strftime(datetime.today(), '%d')
+        lista, dia = dict(get_data(1,setor=0)), datetime.strftime(datetime.today(), '%d')
         lista = {outer_k: {inner_k: float(inner_v) for inner_k, inner_v in outer_v.items()} for outer_k, outer_v in lista.items()}
         return jsonify(lista)
 
 
-lista_fii, dia_fii = dict(get_data_fii()), datetime.strftime(datetime.today(), '%d')
+lista_fii, dia_fii = dict(get_data_fii(1,setor=0)), datetime.strftime(datetime.today(), '%d')
 @app.route("/api/fii/fundamentus.json",methods=['GET'])
 def json_fii_api():
     global lista_fii, dia_fii    
     if dia == datetime.strftime(datetime.today(), '%d'):
         return jsonify(lista_fii)
     else:
-        lista_fii, dia_fii = dict(get_data_fii()), datetime.strftime(datetime.today(), '%d')
+        lista_fii, dia_fii = dict(get_data_fii(1,setor=0)), datetime.strftime(datetime.today(), '%d')
         return jsonify(lista_fii)
 
 app.run(host='0.0.0.0',debug=True,port=8080)

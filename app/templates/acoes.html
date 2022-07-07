@@ -1,9 +1,7 @@
-<!doctype html>
-<title>Melhores aões</title>
-<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
-<div class=page>
-<h1>Melhores Ações</h1>
+{% extends 'base_acoes.html' %}
 
+{% block conteudo %}
+Defina o segmento:<br>
 <form method="post">
 <select id="setor" name="setor">
   <option value="" selected=""></option>
@@ -62,4 +60,4 @@
     {{ table|safe }}
   {% endfor %}
 </div>
-
+{% endblock conteudo %}

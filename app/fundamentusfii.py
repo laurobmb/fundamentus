@@ -27,7 +27,11 @@ def todecimal(string):
     return string
 
 
-def get_data_fii(*args, **kwargs):
+def get_data_fii(value, **kwargs):
+    setor = kwargs.get('setor')
+    if setor == 0:
+      setor = ''    
+
     url = 'http://www.fundamentus.com.br/fii_resultado.php'
     cookie_jar = http.cookiejar.CookieJar()
     opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cookie_jar))
@@ -54,7 +58,7 @@ def get_data_fii(*args, **kwargs):
             'cap_rate_max': '',
             'vacancia_min': '',
             'vacancia_max': '',
-            'segmento': '',
+            'segmento': setor,
             'negociada': 'ON',
             'ordem': '1',
             'x': '28',
@@ -91,9 +95,8 @@ if __name__ == '__main__':
     from waitingbar import WaitingBar
     
     #progress_bar = WaitingBar('[*] Downloading...')
-    result = get_data_fii()
+    result = get_data_fii(1,setor=6)
     #progress_bar.stop()
-
     result_format = '{0:<10} {1:<20} {2:<10} {3:<15} {4:<10} {5:<7} {6:<15} {7:<15} {8:<15} {9:<15} {10:<15} {11:<7}'
     print(result_format.format(
       'Papel',

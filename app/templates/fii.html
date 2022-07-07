@@ -1,0 +1,28 @@
+{% extends 'base_fii.html' %}
+
+{% block conteudo %}
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+<form method="post">
+    Defina o segmento:<br>
+    <select id="setor" name="setor">
+        <option value="" selected=""></option>
+        <option value="2">Híbrido</option>
+        <option value="3">Hospital</option>
+        <option value="4">Hotel</option>
+        <option value="1">Indefinido</option>
+        <option value="5">Lajes Corporativas</option>
+        <option value="6">Logística</option>
+        <option value="7">Outros</option>
+        <option value="8">Residencial</option>
+        <option value="9">Shoppings</option>
+        <option value="10">Títulos e Val. Mob.</option>
+    </select>
+    <input type="submit" value="Submit">
+</form> 
+<div class=page>
+  {% for table in tables %}
+    <h2>{{titles[loop.index]}}</h2>
+    {{ table|safe }}
+  {% endfor %}
+</div>
+{% endblock conteudo %}
