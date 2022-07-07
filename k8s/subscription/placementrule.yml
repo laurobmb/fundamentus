@@ -1,0 +1,16 @@
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  labels:
+    app: fundamentus
+  name: fundamentus-placement
+  namespace: fundamentus
+spec:
+  clusterSelector:
+    matchExpressions:
+      - key: purpose
+        operator: In
+        values:
+          - development
+          - production

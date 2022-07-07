@@ -1,0 +1,38 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: fastapi-appset
+  namespace: openshift-gitops
+spec:
+  generators:
+  - list:
+      elements:
+      - cluster: cluster-dev
+        url: https://api.developer2.acm-lagomes.rhbr-lab.com:6443
+      - cluster: cluster-prod
+        url: https://api.production.acm-lagomes.rhbr-lab.com:6443
+      - cluster: cluster-hub
+        url: https://api.lagomes.rhbr-lab.com:6443
+  - clusterDecisionResource:
+      configMapRef: acm-placement
+      labelSelector:
+        matchLabels:
+          cluster.open-cluster-management.io/placement: openshift-clusters-managed
+      requeueAfterSeconds: 180
+  template:
+    metadata:
+      name: '{{cluster}}-fastapi'
+    spec:
+      project: default
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+      source:
+        repoURL: https://github.com/laurobmb/fundamentus
+        targetRevision: master
+        path: k8s/overlays/25gxs-dev
+      destination:
+        namespace: fastapi
+        server: '{{url}}'

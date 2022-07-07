@@ -1,0 +1,25 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: fundamentus-app
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: fundamentus
+    server: 
+    - https://api.25gxs-dev.sandbox1612.opentlc.com:6443
+    - https://api.25gxs-prod.sandbox1612.opentlc.com:6443
+  project: default
+  source:
+    path: k8s/
+    repoURL: https://github.com/laurobmb/fundamentus
+    targetRevision: master
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: true
+    syncOptions:
+      - PruneLast=true
+      - Replace=true

@@ -1,0 +1,11 @@
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: Channel
+metadata:
+  annotations:
+    apps.open-cluster-management.io/reconcile-rate: medium
+  name: fundamentus-channel
+  namespace: fundamentus-channel-ns
+spec:
+  type: Git
+  pathname: 'https://github.com/laurobmb/fundamentus.git'

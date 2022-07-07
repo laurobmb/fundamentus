@@ -1,0 +1,81 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+bases:
+- ../../base
+
+namePrefix: dev-
+
+namespace: fundamentus-dev
+
+commonLabels:
+  env: fundamentus-dev
+
+images:
+- name: fundamentus
+  newName: quay.io/lagomes/fundamentus
+  newTag: selecao_de_segmento
+
+patches:
+- target:
+    version: v1
+    group: route.openshift.io
+    kind: Route
+    name: fundamentus-route
+  patch: |-
+    - op: replace
+      path: /spec/host
+      value: "fundamentus-dev.apps.lagomes.rhbr-lab.com"
+
+- target:
+    version: v1
+    group: apps
+    kind: Deployment
+    name: fundamentus-deployment
+  patch: |-
+    - op: replace
+      path: /spec/replicas
+      value: 2
+
+- target:
+    version: v1
+    group: route.openshift.io
+    kind: Route
+    name: fundamentus-route
+  patch: |-
+    - op: replace
+      path: /spec/to/name
+      value: "dev-fundamentus-service"
+
+- target:
+    version: v1
+    group: apps
+    kind: Service
+    name: fundamentus
+  patch: |-
+    - op: replace
+      path: /metadata/name
+      value: "fundamentus-dev"
+
+- target:
+    version: v1
+    group: apps
+    kind: Deployment
+    name: fundamentus-deployment
+  patch: |-
+    - op: add
+      path: "/spec/template/spec/containers/0/env/-"
+      value:
+        name: ENVIROMENT
+        value: "dev"
+
+- target:
+    version: v1
+    group: apps
+    kind: Deployment
+    name: fundamentus-deployment
+  patch: |-
+    - op: replace
+      path: /spec/template/spec/serviceAccount
+      value: dev-fundamentus-sa
