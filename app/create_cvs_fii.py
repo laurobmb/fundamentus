@@ -22,7 +22,7 @@ def analise_fii(NUMBER):
     return df_fii.head(NUMBER)
 
 def check_file_fii():
-    filePath = 'fundamentusfii.csv'
+    filePath = '/tmp/fundamentusfii.csv'
     try:
         fileStatsObj = os.stat(filePath)
         if os.path.exists(filePath):

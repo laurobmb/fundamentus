@@ -25,7 +25,7 @@ def analise_acoes(NUMBER):
     return df_fundamentus.head(NUMBER)
 
 def check_file_acoes():
-    filePath = 'fundamentus.csv'
+    filePath = '/tmp/fundamentus.csv'
     try:
         fileStatsObj = os.stat(filePath)
         if os.path.exists(filePath):
