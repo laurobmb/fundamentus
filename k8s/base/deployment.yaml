@@ -17,8 +17,8 @@ spec:
       serviceAccount: fundamentus-sa
       containers:
       - name: fundamentus
-        image: quay.io/lagomes/fundamentus:selecao_de_segmento
-        #image: quay.io/lagomes/fundamentus:master
+        #image: quay.io/lagomes/fundamentus:selecao_de_segmento
+        image: quay.io/lagomes/fundamentus:master
         imagePullPolicy: Always
         env:
         - name: ENVIROMENT_INFO
