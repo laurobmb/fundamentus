@@ -90,4 +90,4 @@ def json_fii_api():
         lista_fii, dia_fii = dict(get_data_fii()), datetime.strftime(datetime.today(), '%d')
         return jsonify(lista_fii)
 
-app.run(host='0.0.0.0',debug=False,port=8080)
+app.run(host='0.0.0.0',debug=True,port=8080)
