@@ -3,7 +3,7 @@ import pandas as pd
 import waitingbar
 import os, time, stat, datetime
 
-file_location='/tmp/fundamentusfii.csv'
+file_location='/tmp/fundamentus.csv'
 
 def data_to_csv_acoes(VALUE):
     setor = VALUE
