@@ -63,5 +63,5 @@ def check_file_acoes(VALUE):
 
 if __name__ == '__main__':
     print('Check data at "funamentus.csv" file.')
-    print("Last Modified Time : ", check_file_acoes(5))
-    print(analise_acoes(10))
+    print("Last Modified Time : ", check_file_acoes(0))
+    print(analise_acoes(100))
