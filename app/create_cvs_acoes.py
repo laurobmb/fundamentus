@@ -3,17 +3,18 @@ import pandas as pd
 import waitingbar
 import os, time, stat, datetime
 
+file_location='/tmp/fundamentus.csv'
 
 def data_to_csv_acoes():
     data = get_data()
     data = {outer_k: {inner_k: float(inner_v) for inner_k, inner_v in outer_v.items()} for outer_k, outer_v in data.items()}
     df_data = pd.DataFrame.from_dict(data).transpose().reset_index() #transposing
     df_data = df_data.rename(columns={'index':'Ticker'}) #rename 'index' columns to 'ticker'
-    df_data.to_csv(r'/tmp/fundamentus.csv', sep=';', index=False, mode='w') #save csv
+    df_data.to_csv(file_location, sep=';', index=False, mode='w') #save csv
 
 def analise_acoes(NUMBER):
     #recuperacao_judicial = ["TEKA4", "TCNO4", "RPMG3", "LUPA3","OIBR4","MWET4","MMXM3","INEP4","VIVR3","FRTA3","IGBR3","SLED3","FHER3","HOOT4"]
-    df_fundamentus = pd.read_csv('/tmp/fundamentus.csv',sep=';')
+    df_fundamentus = pd.read_csv(file_location,sep=';')
     #df_fundamentus = df_fundamentus[df_fundamentus['Ticker'].isin(recuperacao_judicial)]
     df_fundamentus = df_fundamentus[
         (df_fundamentus['DY'] <= 1) & 
@@ -30,7 +31,7 @@ def analise_acoes(NUMBER):
     return df_fundamentus.head(NUMBER)
 
 def check_file_acoes():
-    filePath = '/tmp/fundamentus.csv'
+    filePath = file_location
     try:
         fileStatsObj = os.stat(filePath)
         if os.path.exists(filePath):
