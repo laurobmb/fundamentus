@@ -1,8 +1,10 @@
 <!doctype html>
 <title>Melhores aões</title>
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+<h1>Melhores Ações</h1>
+<p><span style="font-size:16px">Empresas mais seguras para investimento ( <strong>B</strong>ancos <strong>E</strong>nergia <strong>S</strong>aneamento <strong>S</strong>eguro <strong>T</strong>elecom )</span></p>
+
 <div class=page>
-  <h1>Melhores Ações</h1>
   {% for table in tables %}
     <h2>{{titles[loop.index]}}</h2>
     {{ table|safe }}
