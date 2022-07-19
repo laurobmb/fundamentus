@@ -17,17 +17,7 @@ def analise_acoes(NUMBER):
     df_fundamentus = pd.read_csv(file_location,sep=';')
     #df_fundamentus = df_fundamentus[df_fundamentus['Ticker'].isin(recuperacao_judicial)]
     df_fundamentus = df_fundamentus[
-        (df_fundamentus['DY'] <= 1) & 
-        (df_fundamentus['DY'] >= 0.06 ) & 
-        (df_fundamentus['P/L'] <= 10) & 
-        (df_fundamentus['P/L'] >= 0.01 ) &
-        (df_fundamentus['P/VP'] <= 4) & 
-        (df_fundamentus['P/VP'] >= 0.01 ) &
-        (df_fundamentus['ROE'] >= 0 ) &
-        (df_fundamentus['EV/EBITDA'] >= 0 ) & 
-        (df_fundamentus['EV/EBIT'] >= 0 ) &
-        (df_fundamentus['ROIC'] >= 0 ) &
-        (df_fundamentus['Ticker'].astype(str).str.contains('1|2|3|4|5|6'))].sort_values(by=["DY","P/VP","P/L"],ascending=False)
+        (df_fundamentus['Ticker'].astype(str).str.contains('BBAS3'))].sort_values(by=["P/VP","P/L","DY"],ascending=False)
     return df_fundamentus.head(NUMBER)
 
 def check_file_acoes():
