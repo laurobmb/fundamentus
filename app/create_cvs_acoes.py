@@ -27,7 +27,9 @@ def analise_acoes(NUMBER):
         (df_fundamentus['EV/EBITDA'] >= 0 ) & 
         (df_fundamentus['EV/EBIT'] >= 0 ) &
         (df_fundamentus['ROIC'] >= 0 ) &
-        (df_fundamentus['Ticker'].astype(str).str.contains('1|2|3|4|5|6'))].sort_values(by=["DY","P/VP","P/L"],ascending=False)
+        (df_fundamentus['Cresc.5anos'] >= 0 ) &
+        (df_fundamentus['Ticker'].astype(str).str.contains('1|2|3|4|5|6'))].sort_values(
+            by=["DY","P/VP","P/L"],ascending=False)
     return df_fundamentus.head(NUMBER)
 
 def check_file_acoes():
