@@ -17,13 +17,10 @@ def data_to_csv_fii(VALUE):
 def analise_fii(NUMBER):
     df_fii = pd.read_csv(file_location,sep=';')
     df_fii = df_fii[
-        (df_fii['DY'] <= 1) & 
-        (df_fii['DY'] >= 0.06 ) & 
-        (df_fii['FFOYield'] <= 1) & 
-        (df_fii['FFOYield'] >= 0.01 ) &
-        (df_fii['P/VP'] <= 5) & 
-        (df_fii['P/VP'] >= 0.01 ) &
-        (df_fii['LIQUIDEZ'] > 5000 )].sort_values(
+        (df_fii['DY'] >= 0.06 ) & (df_fii['DY'] <= 1) &
+        (df_fii['FFOYield'] >= 0.01 ) & (df_fii['FFOYield'] <= 1) &
+        (df_fii['P/VP'] >= 0.01 ) & (df_fii['P/VP'] <= 5) & 
+        (df_fii['LIQUIDEZ'] > 1000000 )].sort_values(
             by=["DY","P/VP","FFOYield","LIQUIDEZ"],ascending=False)
     return df_fii.head(NUMBER)
 
